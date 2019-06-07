@@ -62,7 +62,7 @@ public class ContactServiceImpl implements ContactService {
 	public ContactDetails getContactDetailsById(int id) {
 
 		EntityManager entityManager = getConnection();
-		entityManager.getTransaction().begin();
+		
 		Query query = entityManager.createQuery("from ContactDetails where cid =:id");
 		query.setParameter("id", id);
 		ContactDetails contactDetails = (ContactDetails) query.getSingleResult();
@@ -102,5 +102,17 @@ public class ContactServiceImpl implements ContactService {
 		// System.out.println("result vaalues" + cou);
 		return count;
 	}
+	
+	
+	/*
+	 * @Override public List getFullNames(String fullname) {
+	 * 
+	 * EntityManager entityManager = getConnection(); Query query = entityManager.
+	 * createQuery("select c.fullName from ContactDetails  c  where c.fullName =:name "
+	 * ); query.setParameter("name", fullname); List rows = query.getResultList();
+	 * 
+	 * return rows; }
+	 */
+	
 
 }

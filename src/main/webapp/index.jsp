@@ -15,7 +15,7 @@
 	<form action="contactbook" method="post">
 
 		<c:out value="${name}"></c:out>
-
+        <c:out value="${names}"></c:out>
 		<br> Contact Id:<br> <input type="text" name="contactid"
 			readonly="readonly"
 			value='<c:out value="${ContactDetailObj.getCid()}"></c:out>'>

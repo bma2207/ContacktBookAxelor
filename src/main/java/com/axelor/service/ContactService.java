@@ -19,5 +19,8 @@ public interface ContactService {
 	ContactDetails getContactDetailsById(int id);
 
 	int CheckContact(String fullname);
+	
+	/* List getFullNames(String fullname); */
+	
 
 }

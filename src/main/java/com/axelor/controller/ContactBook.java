@@ -80,9 +80,9 @@ public class ContactBook extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
-		ContactDetails cd=new ContactDetails();
-		
+
+		ContactDetails cd = new ContactDetails();
+
 		String fullname = request.getParameter("fullname");
 		String mobileno = request.getParameter("mobileno");
 
@@ -90,48 +90,39 @@ public class ContactBook extends HttpServlet {
 
 		int list = contactService.CheckContact(fullname);
 
-		
-
-		System.out.println("count of list is " + cd.getFullName());
-		System.out.println("count of list is " + cd.getFullName());
-	 if (id == null || id.isEmpty()){
-			if (list < 1){
+		if (id == null || id.isEmpty()) {
+			if (list < 1) {
 				contactService.addContact(fullname, mobileno);
 			} else {
 
-				String error = fullname + "Duplicates name";
+				String error = fullname + "Duplicates contact.";
 				RequestDispatcher view = request.getRequestDispatcher(INSERT_OR_EDIT);
 				request.setAttribute("name", error);
 				view.forward(request, response);
-				
-				
-			}
-		} else if(id != null) {
-			
-			// System.out.println("Name Duplicates");
-			if (fullname == cd.getFullName()){
-				int cid = Integer.parseInt(id);
-				contactService.updateContact(cid, fullname, mobileno);
 
-			} else if(list < 1) {
-				
-				int cid = Integer.parseInt(id);
-				contactService.updateContact(cid, fullname, mobileno);
 			}
-			else {
-				String error = fullname + "Duplicates name";
-				RequestDispatcher view = request.getRequestDispatcher(INSERT_OR_EDIT);
-				request.setAttribute("name", error);
-				view.forward(request, response);
+		} else {
+
+			if (id != null) {
+
+				// System.out.println("Name Duplicates");
+				if (list < 1) {
+
+					int cid = Integer.parseInt(id);
+					contactService.updateContact(cid, fullname, mobileno);
+				} else {
+					String errors = fullname + "Contact Updated.";
+					RequestDispatcher view = request.getRequestDispatcher(INSERT_OR_EDIT);
+					request.setAttribute("names", errors);
+					view.forward(request, response);
+				}
 			}
+
 		}
-		
-
 		RequestDispatcher view = request.getRequestDispatcher(LIST_USER);
 		request.setAttribute("list", contactService.getAllcontacts());
 
 		view.forward(request, response);
 
 	}
-
 }
