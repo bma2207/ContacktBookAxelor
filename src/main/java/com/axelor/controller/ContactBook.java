@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.axelor.domains.ContactDetails;
+import com.axelor.domains.ManageAddress;
+import com.axelor.service.AddressImp;
 import com.axelor.service.ContactServiceImpl;
 
 /**
@@ -19,10 +21,12 @@ import com.axelor.service.ContactServiceImpl;
 @WebServlet("/contactbook")
 public class ContactBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	AddressImp addressservice=new AddressImp();
 	ContactServiceImpl contactService = new ContactServiceImpl();
 	private static String INSERT_OR_EDIT = "/index.jsp";
 	private static String LIST_USER = "/contactlist.jsp";
+	private static String Address="/AddNewAddress.jsp";
+	private static String Save="/SaveAddress.jsp";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -60,7 +64,33 @@ public class ContactBook extends HttpServlet {
 			ContactDetails contactDetails = contactService.getContactDetailsById(cid);
 			request.setAttribute("ContactDetailObj", contactDetails);
 
-		} else {
+		}else if(action.equalsIgnoreCase("AddressManage")) {
+			forward = Address;
+			
+			String id = request.getParameter("id");
+			int cid = Integer.parseInt(id);
+			
+			System.out.println("Address mannager " + cid);
+			List<ManageAddress> mngadd=addressservice.update(cid);
+			request.setAttribute("list",mngadd);
+			//request.setAttribute("ContactDetailObj", contactDetails);
+
+		}else if(action.equalsIgnoreCase("SaveAddress")) {
+			forward = Save;
+			String id = request.getParameter("id");
+			int cid = Integer.parseInt(id);
+			ContactDetails contactDetails = contactService.getContactDetailsById(cid);
+			request.setAttribute("ContactDetailObj", contactDetails);
+
+		} /*
+			 * else if(action.equalsIgnoreCase("EditAddress")) { forward = Save; String id =
+			 * request.getParameter("id"); int cid = Integer.parseInt(id); ManageAddress
+			 * contactDetails = (ManageAddress) addressservice.update(cid);
+			 * request.setAttribute("ContactDetailObj", contactDetails);
+			 * 
+			 * }
+			 */
+		else {
 
 			forward = INSERT_OR_EDIT;
 

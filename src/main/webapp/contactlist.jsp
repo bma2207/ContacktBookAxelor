@@ -1,3 +1,4 @@
+<%@page import="javax.persistence.metamodel.SetAttribute"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -39,7 +40,7 @@ ContactServiceImpl service=new ContactServiceImpl();
 	
 %> --%>
 	<a href="contactbook?action=insert">Add Contact</a>
-
+	
 	<h2>Contact List</h2>
 
 	<table>
@@ -49,6 +50,8 @@ ContactServiceImpl service=new ContactServiceImpl();
 			<th>Mobile No</th>
 			<th>Edit</th>
 			<th>Delete</th>
+			<th>ManageAddress</th>
+			<th>Add More</th>
 		</tr>
 
 		<c:forEach items="${list}" var="u">
@@ -60,6 +63,9 @@ ContactServiceImpl service=new ContactServiceImpl();
 				<td>${u.getMobileNo()}</td>
 				<td><a href="contactbook?action=edit&id=${u.getCid()}">Edit</a></td>
 				<td><a href="contactbook?action=delete&id=${u.getCid()}">Delete</a></td>
+				<td><a href="contactbook?action=AddressManage&id=${u.getCid()}">ManageAddress</a></td>
+				<td><a href="contactbook?action=SaveAddress&id=${u.getCid()}">New Address</a></td>
+			
 			</tr>
 
 		</c:forEach>
