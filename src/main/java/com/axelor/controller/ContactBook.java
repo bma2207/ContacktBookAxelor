@@ -21,12 +21,13 @@ import com.axelor.service.ContactServiceImpl;
 @WebServlet("/contactbook")
 public class ContactBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	AddressImp addressservice=new AddressImp();
+	AddressImp addressservice = new AddressImp();
 	ContactServiceImpl contactService = new ContactServiceImpl();
 	private static String INSERT_OR_EDIT = "/index.jsp";
 	private static String LIST_USER = "/contactlist.jsp";
-	private static String Address="/AddNewAddress.jsp";
-	private static String Save="/SaveAddress.jsp";
+	private static String Address = "/AddNewAddress.jsp";
+	private static String Save = "/SaveAddress.jsp";
+	private static String UpdateAddress="/UpdateAddress.jsp";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -64,32 +65,38 @@ public class ContactBook extends HttpServlet {
 			ContactDetails contactDetails = contactService.getContactDetailsById(cid);
 			request.setAttribute("ContactDetailObj", contactDetails);
 
-		}else if(action.equalsIgnoreCase("AddressManage")) {
+		} else if (action.equalsIgnoreCase("AddressManage")) {
 			forward = Address;
-			
-			String id = request.getParameter("id");
-			int cid = Integer.parseInt(id);
-			
-			System.out.println("Address mannager " + cid);
-			List<ManageAddress> mngadd=addressservice.update(cid);
-			request.setAttribute("list",mngadd);
-			//request.setAttribute("ContactDetailObj", contactDetails);
 
-		}else if(action.equalsIgnoreCase("SaveAddress")) {
+			String id = request.getParameter("id");
+			
+			int cid = Integer.parseInt(id);
+
+			System.out.println("Address mannager " + cid);
+			List<ManageAddress> mngadd = addressservice.update(cid);
+			
+			request.setAttribute("list", mngadd);
+			// request.setAttribute("ContactDetailObj", contactDetails);
+
+		} else if (action.equalsIgnoreCase("SaveAddress")) {
 			forward = Save;
 			String id = request.getParameter("id");
 			int cid = Integer.parseInt(id);
 			ContactDetails contactDetails = contactService.getContactDetailsById(cid);
 			request.setAttribute("ContactDetailObj", contactDetails);
 
-		} /*
-			 * else if(action.equalsIgnoreCase("EditAddress")) { forward = Save; String id =
-			 * request.getParameter("id"); int cid = Integer.parseInt(id); ManageAddress
-			 * contactDetails = (ManageAddress) addressservice.update(cid);
-			 * request.setAttribute("ContactDetailObj", contactDetails);
-			 * 
-			 * }
-			 */
+		} else if (action.equalsIgnoreCase("EditAddress")) {
+			forward = UpdateAddress;
+			String id = request.getParameter("id");
+			System.out.println("Get Id :--->" + id);
+			int cid = Integer.parseInt(id);
+			
+			List<ManageAddress> mngEdit = addressservice.updateById(cid);
+			request.setAttribute("EditData", mngEdit);
+		
+
+		}
+
 		else {
 
 			forward = INSERT_OR_EDIT;

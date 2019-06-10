@@ -10,4 +10,6 @@ public interface AddressService {
 
 	void addAddress(int id,String address);
 	List<ManageAddress> update(int cid);
+	void updateAddress(int aid,String address);
+	List<ManageAddress> updateById(int cid);
 }

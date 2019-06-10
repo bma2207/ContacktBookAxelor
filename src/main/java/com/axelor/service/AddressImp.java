@@ -45,12 +45,45 @@ public class AddressImp implements AddressService {
 	List<ManageAddress> result= query.getResultList();
 		for (ManageAddress m : result)
 		{
-			System.out.println(m.getAddress());
+			System.out.println(m.getAddress() + "" + m.getAid());
 		}
 		
 		
 		return result;
 	}
+
+	@Override
+	public void updateAddress(int cid, String address) {
+		// TODO Auto-generated method stub
+		EntityManager entityManager = getConnection();
+		entityManager.getTransaction().begin();
+
+		Query query = entityManager
+				.createQuery("update ManageAddress set Address=:add  where Aid=:id");
+		query.setParameter("id",cid);
+		query.setParameter("add", address);
+		
+
+		query.executeUpdate();
+		entityManager.getTransaction().commit();
+	}
+	@Override
+	public List<ManageAddress> updateById(int cid)
+	{
+		EntityManager entityManager = getConnection();
+		Query query = entityManager.createQuery("from ManageAddress  where Aid=:id ");
+		query.setParameter("id", cid);
+	List<ManageAddress> result= query.getResultList();
+		for (ManageAddress m : result)
+		{
+			System.out.println(m.getAddress() + "" + m.getAid());
+		}
+		
+		
+		return result;
+		
+	}
+
 
 	
 }

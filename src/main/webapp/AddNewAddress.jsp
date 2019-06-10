@@ -38,6 +38,7 @@ ContactServiceImpl service=new ContactServiceImpl();
 
 	
 %> --%>
+
 	<a href="contactbook?action=insert">Add Contact</a>
 
 	<h2>Address Of </h2>
@@ -54,13 +55,9 @@ ContactServiceImpl service=new ContactServiceImpl();
 
 
 			<tr>
-				
+				<td>${u.getAid() }</td>
 				<td>${u.getAddress()}</td>
-
-			
-			
-				
-				<td><a href="contactbook?action=EditAddress&id=${ContactDetailObj.getCid()}">Edit Address</a></td>
+				<td><a href="contactbook?action=EditAddress&id=${u.getAid()}">Edit Address</a></td>
 			</tr>
 
 	</c:forEach>

@@ -10,13 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.axelor.domains.ContactDetails;
 import com.axelor.domains.ManageAddress;
 import com.axelor.service.AddressImp;
 import com.axelor.service.ContactServiceImpl;
 
-@WebServlet("/Address_Add")
-public class Address extends HttpServlet {
+@WebServlet("/update")
+public class UpdateControler extends HttpServlet {
 	AddressImp addressservice = new AddressImp();
 	ContactServiceImpl contactService = new ContactServiceImpl();
 	// private static String Address_page="/AddNewAddress.jsp";
@@ -24,7 +23,6 @@ public class Address extends HttpServlet {
 	private static String LIST_USER = "/contactlist.jsp";
 	private static String Address = "/AddNewAddress.jsp";
 	private static String Save = "/SaveAddress.jsp";
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -33,15 +31,14 @@ public class Address extends HttpServlet {
 
 		ManageAddress mngadd = new ManageAddress();
 
-		String id = request.getParameter("contactid");
+		String id = request.getParameter("AddId");
 		int cid = Integer.parseInt(id);
-		String Addresss = request.getParameter("Address");
+		String Addresss = request.getParameter("Add");
 
-		if (id != null) {
-
-			addressservice.addAddress(cid, Addresss);
+		 if (id != null) {
+			
+			addressservice.updateAddress(cid, Addresss);
 		}
-
 
 		RequestDispatcher view = request.getRequestDispatcher(LIST_USER);
 		request.setAttribute("list", contactService.getAllcontacts());
